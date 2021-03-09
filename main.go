@@ -2,9 +2,14 @@ package main
 
 import "github.com/gin-gonic/gin"
 
+var api_gateway *gin.Engine
+
+func init() {
+	api_gateway = setup_api_gateway()
+}
+
 func main() {
-	api_engine := setup_api_gateway()
-	api_engine.Run(":8090")
+	api_gateway.Run(":8090")
 }
 
 func setup_api_gateway() *gin.Engine {
