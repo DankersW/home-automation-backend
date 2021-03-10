@@ -1,10 +1,18 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
+
+var api_gateway *gin.Engine
+
+func init() {
+	api_gateway = setup_api_gateway()
+	connect_to_mongo()
+}
 
 func main() {
-	api_engine := setup_api_gateway()
-	api_engine.Run(":8090")
+	api_gateway.Run(":8090")
 }
 
 func setup_api_gateway() *gin.Engine {
@@ -16,5 +24,6 @@ func setup_api_gateway() *gin.Engine {
 
 func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/", handler_get_all_apis)
-	router_group.GET("/random", handler_get_random)
+	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names)
+	router_group.GET("/temp", handler_get_temp)
 }
