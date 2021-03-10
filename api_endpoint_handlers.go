@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"math/rand"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,20 +11,12 @@ import (
 func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
 		"all":                     "/api/",
-		"random":                  "/api/random",
 		"iot_db_collection_names": "/api/iotDbCollectionNames",
+		"temperature":             "/api/temp",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": apis,
-	})
-}
-
-func handler_get_random(context *gin.Context) {
-	random_number := rand.Intn(50)
-	context.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusOK,
-		"message": random_number,
 	})
 }
 
@@ -42,5 +33,13 @@ func handler_get_iot_db_collection_names(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"code":    code,
 		"message": collection_names,
+	})
+}
+
+func handler_get_temp(context *gin.Context) {
+	temp_data_raw := read_device_sensor_data_collection()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": temp_data_raw,
 	})
 }
