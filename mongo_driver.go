@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -26,14 +27,13 @@ func connect_to_mongo() {
 	}
 
 	iot_db = client.Database("iot_db")
-	//iot_db = client.Database("test")
 }
 
 func read_device_sensor_data_collection() []SensorData {
 	// todo: make me generic
 	sensor_data_collection := iot_db.Collection("device_sensor_data")
 
-	filter := bson.D{{}}
+	filter := generate_timestamp_filter(365, 0)
 	data_cursor, err := sensor_data_collection.Find(db_ctx, filter)
 	if err != nil {
 		log.Fatal(err)
@@ -41,6 +41,18 @@ func read_device_sensor_data_collection() []SensorData {
 	sensor_data := parse_sensor_data_document(data_cursor)
 	data_cursor.Close(context.TODO())
 	return sensor_data
+}
+
+func generate_timestamp_filter(oldest_day_limit int, max_day_limit int) primitive.D {
+	filter := bson.D{
+		primitive.E{
+			Key: "timestamp", Value: bson.D{primitive.E{
+				Key: "$gte", Value: primitive.NewDateTimeFromTime(time.Now().AddDate(0, 0, -oldest_day_limit))}}},
+		primitive.E{
+			Key: "timestamp", Value: bson.D{primitive.E{
+				Key: "$lte", Value: primitive.NewDateTimeFromTime(time.Now().AddDate(0, 0, -max_day_limit))}}},
+	}
+	return filter
 }
 
 func parse_sensor_data_document(cursor *mongo.Cursor) []SensorData {
