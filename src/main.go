@@ -12,7 +12,7 @@ func init() {
 }
 
 func main() {
-	api_gateway.Run(":8090")
+	api_gateway.Run(":3000")
 }
 
 func setup_api_gateway() *gin.Engine {
