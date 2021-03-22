@@ -1,4 +1,4 @@
-module github.com/dankersw/dankers-io-backend
+module github.com/dankersw/home-automation-backend
 
 go 1.13
 
