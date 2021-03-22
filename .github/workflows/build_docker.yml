@@ -28,7 +28,7 @@ jobs:
 
       - name: "build docker images"
         run: |
-          DOCKER_REPO="dankers-io-backend"
+          DOCKER_REPO="home-automation-backend"
           DOCKER_ACC="dankersw"
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             GITHUB_TAG=${GITHUB_REF#refs/tags/*/}
