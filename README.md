@@ -1,4 +1,4 @@
-# dankers-io-backend
+# Home-automation-backend
 
 ## Compile and run
 
