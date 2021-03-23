@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,11 +13,13 @@ func init() {
 }
 
 func main() {
-	api_gateway.Run(":3000")
+	api_gateway.Run(":4000")
 }
 
 func setup_api_gateway() *gin.Engine {
 	api_engine := gin.Default()
+	api_engine.Use(cors.Default())
+
 	api_router_group := api_engine.Group("/api")
 	setup_api_endpoints(api_router_group)
 	return api_engine
