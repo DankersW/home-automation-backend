@@ -3,5 +3,5 @@
 ## Compile and run
 
 ```sh
-go build -o build && ./build/dankers-io-backend
+go build -o ../build && .././build/home-automation-backend
 ```
