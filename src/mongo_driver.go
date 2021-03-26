@@ -34,7 +34,7 @@ func read_device_sensor_data_collection() []SensorData {
 	// todo: make me generic
 	sensor_data_collection := iot_db.Collection("device_sensor_data")
 
-	filter := generate_timestamp_filter(365, 0)
+	filter := generate_timestamp_filter(7, 0)
 	data_cursor, err := sensor_data_collection.Find(db_ctx, filter)
 	if err != nil {
 		log.Fatal(err)
