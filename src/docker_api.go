@@ -8,20 +8,31 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func get_docker_info() string {
+func get_docker_info() []DockerInfo {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		panic(err)
 	}
 
-	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
+	data_containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
 	if err != nil {
 		panic(err)
 	}
 
-	for _, container := range containers {
-		fmt.Println(container.ID)
+	docker_info := []DockerInfo{}
+	for _, container := range data_containers {
+
+		// todo: fix port entry
+
+		var info_item DockerInfo
+		info_item.Name = container.Names[0]
+		info_item.Version = container.Image
+		info_item.Status = container.State
+		info_item.Uptime = container.Status
+
+		docker_info = append(docker_info, info_item)
 	}
-	return "hello"
+	fmt.Println(docker_info)
+	return docker_info
 }
