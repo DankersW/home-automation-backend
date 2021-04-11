@@ -10,12 +10,12 @@ import (
 
 func get_docker_info() []DockerInfo {
 	ctx := context.Background()
-	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	docker_cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		panic(err)
 	}
 
-	data_containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
+	data_containers, err := docker_cli.ContainerList(ctx, types.ContainerListOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -24,6 +24,7 @@ func get_docker_info() []DockerInfo {
 	for _, container := range data_containers {
 
 		// todo: fix port entry
+		fmt.Println(container.Ports)
 
 		var info_item DockerInfo
 		info_item.Name = container.Names[0]
