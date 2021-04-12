@@ -10,3 +10,11 @@ type SensorData struct {
 	Temp      float32            `json:"temp"`
 	Humi      float32            `json:"humi"`
 }
+
+type DockerInfo struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+	Uptime  string `json:"uptime"`
+	Status  string `json:"status"`
+	Port    string `json:"port"`
+}

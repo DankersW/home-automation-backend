@@ -13,6 +13,7 @@ func handler_get_all_apis(context *gin.Context) {
 		"all":                     "/api/",
 		"iot_db_collection_names": "/api/iotDbCollectionNames",
 		"temperature":             "/api/temp",
+		"docker info":             "/api/docker_info",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -41,5 +42,13 @@ func handler_get_temp(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": temp_data_raw,
+	})
+}
+
+func handler_get_docker_info(context *gin.Context) {
+	docker_info := get_docker_info()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": docker_info,
 	})
 }
