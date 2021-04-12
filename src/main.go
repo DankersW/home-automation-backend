@@ -30,5 +30,4 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names)
 	router_group.GET("/temp", handler_get_temp)
 	router_group.GET("/docker_info", handler_get_docker_info)
-
 }
