@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"strconv"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
@@ -22,18 +22,19 @@ func get_docker_info() []DockerInfo {
 
 	docker_info := []DockerInfo{}
 	for _, container := range data_containers {
-
-		// todo: fix port entry
-		fmt.Println(container.Ports)
-
 		var info_item DockerInfo
 		info_item.Name = container.Names[0]
 		info_item.Version = container.Image
 		info_item.Status = container.State
 		info_item.Uptime = container.Status
 
+		var ports string = ""
+		for _, port := range container.Ports {
+			ports += strconv.Itoa(int(port.PublicPort)) + " "
+		}
+		info_item.Port = ports
+
 		docker_info = append(docker_info, info_item)
 	}
-	fmt.Println(docker_info)
 	return docker_info
 }
