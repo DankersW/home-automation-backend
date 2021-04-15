@@ -11,4 +11,3 @@
 
 - Get docker sdk to work from inside docker container
 
-
