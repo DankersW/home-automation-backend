@@ -15,6 +15,7 @@
 - Mongo filter generator that is reusable
 - Pass info from the HTTP request into the endpoints handlers
 - Configuration fil holding port and ip addresses
+- Documentation
 
 ## Bugs
 
