@@ -16,6 +16,7 @@
 - Pass info from the HTTP request into the endpoints handlers
 - Configuration fil holding port and ip addresses
 - Documentation
+- [Linting action](https://github.com/wearerequired/lint-action)
 
 ## Bugs
 
