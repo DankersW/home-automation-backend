@@ -22,6 +22,7 @@ type DockerInfo struct {
 
 type Config struct {
 	Mongo struct {
-		Url string `yaml:"url"`
+		Address string `yaml:"address"`
+		Port    uint16 `yaml:"port"`
 	}
 }
