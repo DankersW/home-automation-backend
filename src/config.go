@@ -8,27 +8,25 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func get_config() string {
-	c, err := readConf("../config.yml")
+func get_config() Config {
+	conf, err := read_config("../config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%v\n", c)
-	fmt.Println(c.Conf.Hits)
-	return "abc"
+	return *conf
 }
 
-func readConf(filename string) (*Config, error) {
-	buf, err := ioutil.ReadFile(filename)
+func read_config(filename string) (*Config, error) {
+	buffer, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
 
-	c := &Config{}
-	err = yaml.Unmarshal(buf, c)
+	conf := &Config{}
+	err = yaml.Unmarshal(buffer, conf)
 	if err != nil {
 		return nil, fmt.Errorf("in file %q: %v", filename, err)
 	}
 
-	return c, nil
+	return conf, nil
 }

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -11,8 +9,7 @@ var api_gateway *gin.Engine
 var config Config
 
 func init() {
-	var config_ = get_config()
-	fmt.Println(config_)
+	config = get_config()
 	api_gateway = setup_api_gateway()
 	connect_to_mongo()
 }
