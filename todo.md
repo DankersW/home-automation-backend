@@ -1,5 +1,8 @@
 # Todo
 
+- Save own port number in config
+- Override config.yml with prod config for docker image
+
 ## Needed
 
 - Create API call to fetch the device states, returing a list of all device names and there status
