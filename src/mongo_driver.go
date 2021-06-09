@@ -16,8 +16,8 @@ var db_ctx = context.TODO()
 
 func connect_to_mongo() {
 	//clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@192.168.1.140:27017/")
-	clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@mongo:27017/")
-	//clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@localhost:27017/")
+	//clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@mongo:27017/")
+	clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@localhost:27017/")
 
 	client, err := mongo.Connect(db_ctx, clientOptions)
 	if err != nil {

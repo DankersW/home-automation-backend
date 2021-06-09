@@ -19,3 +19,11 @@ type DockerInfo struct {
 	Status  string `json:"status"`
 	Port    string `json:"port"`
 }
+
+type Config struct {
+	Conf struct {
+		Hits      int64
+		Time      int64
+		CamelCase string `yaml:"camelCase"`
+	}
+}
