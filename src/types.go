@@ -21,9 +21,7 @@ type DockerInfo struct {
 }
 
 type Config struct {
-	Conf struct {
-		Hits      int64
-		Time      int64
-		CamelCase string `yaml:"camelCase"`
+	Mongo struct {
+		Url string `yaml:"url"`
 	}
 }

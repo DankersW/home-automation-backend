@@ -9,14 +9,14 @@ import (
 )
 
 func get_config() Config {
-	conf, err := read_config("../config.yml")
+	conf, err := read_yml_file("../config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
 	return *conf
 }
 
-func read_config(filename string) (*Config, error) {
+func read_yml_file(filename string) (*Config, error) {
 	buffer, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
