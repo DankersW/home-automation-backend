@@ -25,4 +25,7 @@ type Config struct {
 		Address string `yaml:"address"`
 		Port    uint16 `yaml:"port"`
 	}
+	Api struct {
+		Port uint16 `yaml:"port"`
+	}
 }

@@ -3,3 +3,6 @@ mongo:
   #address: "mongo" 
   #address: "192.168.1.140" 
   port: 27017
+
+api:
+  port: 4000
