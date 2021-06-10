@@ -8,6 +8,7 @@ RUN go mod download
 
 # Copy the code into the container
 COPY src/. .
+COPY docker/config.yml .
 RUN go build -o main .
 
 # Move to /dist directory as the place for resulting binary folder

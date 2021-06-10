@@ -19,3 +19,13 @@ type DockerInfo struct {
 	Status  string `json:"status"`
 	Port    string `json:"port"`
 }
+
+type Config struct {
+	Mongo struct {
+		Address string `yaml:"address"`
+		Port    uint16 `yaml:"port"`
+	}
+	Api struct {
+		Port uint16 `yaml:"port"`
+	}
+}

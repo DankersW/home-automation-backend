@@ -15,4 +15,5 @@ require (
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	go.mongodb.org/mongo-driver v1.4.6
 	google.golang.org/grpc v1.37.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 )

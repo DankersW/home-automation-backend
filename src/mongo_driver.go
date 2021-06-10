@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -15,9 +16,8 @@ var iot_db *mongo.Database
 var db_ctx = context.TODO()
 
 func connect_to_mongo() {
-	//clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@192.168.1.140:27017/")
-	clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@mongo:27017/")
-	//clientOptions := options.Client().ApplyURI("mongodb://admin:mongo_admin_iot@localhost:27017/")
+	mongo_url := fmt.Sprintf("mongodb://admin:mongo_admin_iot@%s:%d/", config.Mongo.Address, config.Mongo.Port)
+	clientOptions := options.Client().ApplyURI(mongo_url)
 
 	client, err := mongo.Connect(db_ctx, clientOptions)
 	if err != nil {

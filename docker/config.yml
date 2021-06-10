@@ -1,0 +1,6 @@
+mongo:
+  address: "mongo"
+  port: 27017
+
+api:
+  port: 4000
