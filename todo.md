@@ -20,6 +20,4 @@
 
 ## Bugs
 
-- When returning the temp api, return it in order by date
-- Docker compose info, have all the ports only once
 - Fix connect to mongo bug when no mongo is present
