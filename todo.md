@@ -14,12 +14,9 @@
 - More generic mongo driver
 - Mongo filter generator that is reusable
 - Pass info from the HTTP request into the endpoints handlers
-- Configuration fil holding port and ip addresses
 - Documentation
 - [Linting action](https://github.com/wearerequired/lint-action)
 
 ## Bugs
 
-- When returning the temp api, return it in order by date
-- Docker compose info, have all the ports only once
 - Fix connect to mongo bug when no mongo is present
