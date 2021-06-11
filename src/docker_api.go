@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -46,10 +45,21 @@ func get_docker_info() []DockerInfo {
 }
 
 func parse_ports(ports_struct []types.Port) string {
-	var ports string = ""
-	fmt.Println(ports_struct)
+	ports_array := []string{}
 	for _, port := range ports_struct {
-		ports += strconv.Itoa(int(port.PublicPort)) + " "
+		port := strconv.Itoa(int(port.PublicPort))
+		if !string_in_slice(port, ports_array) {
+			ports_array = append(ports_array, port)
+		}
 	}
-	return "14, 18"
+	return strings.Join(ports_array[:], ", ")
+}
+
+func string_in_slice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
 }
