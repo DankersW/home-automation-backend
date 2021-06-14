@@ -10,10 +10,12 @@ import (
 
 func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
-		"all":                     "/api/",
-		"iot_db_collection_names": "/api/iotDbCollectionNames",
-		"temperature":             "/api/temp",
-		"docker info":             "/api/docker_info",
+		"all":                       "/api/",
+		"get all collection names":  "/api/iotDbCollectionNames",
+		"temperature":               "/api/temp",
+		"docker info":               "/api/docker_info",
+		"connected devices info":    "/api/devices/status_info",
+		"connected devices summary": "/api/devices/status_summary",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
