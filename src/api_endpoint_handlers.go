@@ -52,3 +52,19 @@ func handler_get_docker_info(context *gin.Context) {
 		"message": docker_info,
 	})
 }
+
+func handler_get_devices_status_detail(context *gin.Context) {
+	device_info := "device info"
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
+	})
+}
+
+func handler_get_devices_status_summary(context *gin.Context) {
+	device_info := "device summary"
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
+	})
+}
