@@ -11,9 +11,8 @@ import (
 )
 
 func get_device_sensor_data() []SensorData {
-	collection := "device_sensor_data"
 	filter := generate_timestamp_filter(7, 0)
-	cursor := mongo_read(collection, filter)
+	cursor := mongo_read("device_sensor_data", filter)
 
 	data := parse_sensor_data_cursor(cursor)
 
@@ -40,10 +39,18 @@ func parse_sensor_data_cursor(cursor *mongo.Cursor) []SensorData {
 	return sensor_data
 }
 
-// Define all the db calls
-func get_table() string {
+func get_digit_twin() []DigitalTwin {
 	filter := bson.D{}
 	cursor := mongo_read("digital_twin", filter)
+
+	data := parse_digital_twin_cursor(cursor)
+
+	cursor.Close(context.TODO())
+	return data
+}
+
+func parse_digital_twin_cursor(cursor *mongo.Cursor) []DigitalTwin {
+	digital_twin := []DigitalTwin{}
 
 	for cursor.Next(db_ctx) {
 		var document_item bson.M
@@ -52,8 +59,16 @@ func get_table() string {
 			log.Fatal(err)
 		}
 		fmt.Println(document_item["device_name"].(string))
-	}
+		fmt.Println(document_item["active"])
+		fmt.Println(document_item["location"])
 
-	cursor.Close(context.TODO())
-	return "all good"
+		var item DigitalTwin
+		item.Name = document_item["device_name"].(string)
+		item.Active = document_item["active"].(bool)
+		//item.Location = document_item["location"].(string)
+		//item.Technology = document_item["technology"].(string)
+		//item.Battery = document_item["battery_level"].(string)
+		digital_twin = append(digital_twin, item)
+	}
+	return digital_twin
 }

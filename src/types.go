@@ -22,7 +22,7 @@ type DockerInfo struct {
 
 type DigitalTwin struct {
 	Name       string `json:"device_name"`
-	Active     string `json:"active"`
+	Active     bool   `json:"active"`
 	Location   string `json:"location"`
 	Technology string `json:"technology"`
 	Battery    string `json:"battery_level"`

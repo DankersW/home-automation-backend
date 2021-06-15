@@ -56,7 +56,7 @@ func handler_get_docker_info(context *gin.Context) {
 }
 
 func handler_get_devices_digital_twin(context *gin.Context) {
-	device_info := get_table()
+	device_info := get_digit_twin()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": device_info,
