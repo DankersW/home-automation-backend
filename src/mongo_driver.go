@@ -32,6 +32,15 @@ func connect_to_mongo() {
 	iot_db = client.Database("iot_db")
 }
 
+func mongo_read(collection string, filter primitive.D) *mongo.Cursor {
+	sensor_data_collection := iot_db.Collection(collection)
+	data_cursor, err := sensor_data_collection.Find(db_ctx, filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data_cursor
+}
+
 func read_device_sensor_data_collection() []SensorData {
 	// todo: make me generic
 	sensor_data_collection := iot_db.Collection("device_sensor_data")

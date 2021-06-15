@@ -40,7 +40,7 @@ func handler_get_iot_db_collection_names(context *gin.Context) {
 }
 
 func handler_get_temp(context *gin.Context) {
-	temp_data_raw := read_device_sensor_data_collection()
+	temp_data_raw := get_device_sensor_data()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": temp_data_raw,
@@ -56,7 +56,7 @@ func handler_get_docker_info(context *gin.Context) {
 }
 
 func handler_get_devices_status_detail(context *gin.Context) {
-	device_info := "device info"
+	device_info := get_table()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": device_info,
