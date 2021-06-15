@@ -20,6 +20,14 @@ type DockerInfo struct {
 	Port    string `json:"port"`
 }
 
+type DigitalTwin struct {
+	Name       string `json:"device_name"`
+	Active     string `json:"active"`
+	Location   string `json:"location"`
+	Technology string `json:"technology"`
+	Battery    string `json:"battery_level"`
+}
+
 type Config struct {
 	Mongo struct {
 		Address string `yaml:"address"`
