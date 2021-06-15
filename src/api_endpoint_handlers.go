@@ -10,12 +10,12 @@ import (
 
 func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
-		"all":                       "/api/",
-		"get all collection names":  "/api/iotDbCollectionNames",
-		"temperature":               "/api/temp",
-		"docker info":               "/api/docker_info",
-		"connected devices info":    "/api/devices/status_info",
-		"connected devices summary": "/api/devices/status_summary",
+		"all":                              "/api/",
+		"get all collection names":         "/api/iotDbCollectionNames",
+		"temperature":                      "/api/temp",
+		"docker info":                      "/api/docker_info",
+		"digital twin info":                "/api/devices/digital_twin",
+		"connected devices status summary": "/api/devices/status",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -55,7 +55,7 @@ func handler_get_docker_info(context *gin.Context) {
 	})
 }
 
-func handler_get_devices_status_detail(context *gin.Context) {
+func handler_get_devices_digital_twin(context *gin.Context) {
 	device_info := get_table()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -63,7 +63,7 @@ func handler_get_devices_status_detail(context *gin.Context) {
 	})
 }
 
-func handler_get_devices_status_summary(context *gin.Context) {
+func handler_get_devices_status(context *gin.Context) {
 	device_info := "device summary"
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,

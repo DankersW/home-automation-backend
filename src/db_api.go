@@ -10,27 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// Define all the db calls
-func get_table() string {
-	filter := bson.D{}
-	cursor := mongo_read("digital_twin", filter)
-
-	for cursor.Next(db_ctx) {
-		var document_item bson.M
-		err := cursor.Decode(&document_item)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(document_item["device_name"].(string))
-	}
-
-	cursor.Close(context.TODO())
-	return "all good"
-}
-
 func get_device_sensor_data() []SensorData {
 	collection := "device_sensor_data"
-	filter := generate_timestamp_filter(500, 0)
+	filter := generate_timestamp_filter(7, 0)
 	cursor := mongo_read(collection, filter)
 
 	data := parse_sensor_data_cursor(cursor)
@@ -56,4 +38,22 @@ func parse_sensor_data_cursor(cursor *mongo.Cursor) []SensorData {
 		sensor_data = append(sensor_data, sensor_item)
 	}
 	return sensor_data
+}
+
+// Define all the db calls
+func get_table() string {
+	filter := bson.D{}
+	cursor := mongo_read("digital_twin", filter)
+
+	for cursor.Next(db_ctx) {
+		var document_item bson.M
+		err := cursor.Decode(&document_item)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(document_item["device_name"].(string))
+	}
+
+	cursor.Close(context.TODO())
+	return "all good"
 }
