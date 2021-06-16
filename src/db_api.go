@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -30,7 +29,7 @@ func parse_sensor_data_cursor(cursor *mongo.Cursor) []SensorData {
 		}
 
 		var sensor_item SensorData
-		sensor_item.Device_id = document_item["device_id"].(string)
+		sensor_item.Device_id = cast_to_string(document_item["device_id"])
 		sensor_item.Timestamp = document_item["timestamp"].(primitive.DateTime)
 		sensor_item.Temp = cast_to_float32(document_item["temperature"])
 		sensor_item.Humi = cast_to_float32(document_item["humidity"])
@@ -58,22 +57,13 @@ func parse_digital_twin_cursor(cursor *mongo.Cursor) []DigitalTwin {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(document_item["device_name"].(string))
-		fmt.Println(document_item["active"])
-		fmt.Println(document_item["location"])
 
 		var item DigitalTwin
 		item.Name = document_item["device_name"].(string)
 		item.Active = document_item["active"].(bool)
-		if document_item["location"] != nil {
-			item.Location = document_item["location"].(string)
-		}
-		if document_item["technology"] != nil {
-			item.Technology = document_item["technology"].(string)
-		}
-		if document_item["battery_level"] != nil {
-			item.Battery = document_item["battery_level"].(string)
-		}
+		item.Location = cast_to_string(document_item["location"])
+		item.Technology = cast_to_string(document_item["technology"])
+		item.Battery = cast_to_string(document_item["battery_level"])
 		digital_twin = append(digital_twin, item)
 	}
 	return digital_twin
