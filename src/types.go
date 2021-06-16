@@ -28,6 +28,12 @@ type DigitalTwin struct {
 	Battery    string `json:"battery_level"`
 }
 
+type DeviceStatus struct {
+	Total   int `json:"total"`
+	Online  int `json:"online"`
+	Offline int `json:"offline"`
+}
+
 type Config struct {
 	Mongo struct {
 		Address string `yaml:"address"`
