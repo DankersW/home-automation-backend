@@ -65,9 +65,15 @@ func parse_digital_twin_cursor(cursor *mongo.Cursor) []DigitalTwin {
 		var item DigitalTwin
 		item.Name = document_item["device_name"].(string)
 		item.Active = document_item["active"].(bool)
-		//item.Location = document_item["location"].(string)
-		//item.Technology = document_item["technology"].(string)
-		//item.Battery = document_item["battery_level"].(string)
+		if document_item["location"] != nil {
+			item.Location = document_item["location"].(string)
+		}
+		if document_item["technology"] != nil {
+			item.Technology = document_item["technology"].(string)
+		}
+		if document_item["battery_level"] != nil {
+			item.Battery = document_item["battery_level"].(string)
+		}
 		digital_twin = append(digital_twin, item)
 	}
 	return digital_twin
