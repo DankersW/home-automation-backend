@@ -47,6 +47,14 @@ func handler_get_temp(context *gin.Context) {
 	})
 }
 
+func handler_get_current_temp(context *gin.Context) {
+	data := get_current_temp()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": data,
+	})
+}
+
 func handler_get_docker_info(context *gin.Context) {
 	docker_info := get_docker_info()
 	context.JSON(http.StatusOK, gin.H{

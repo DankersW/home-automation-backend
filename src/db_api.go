@@ -105,3 +105,7 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 
 	return device_status
 }
+
+func get_current_temp() string {
+	return "abc"
+}
