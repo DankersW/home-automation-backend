@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -69,7 +70,7 @@ func parse_digital_twin_cursor(cursor *mongo.Cursor) []DigitalTwin {
 	return digital_twin
 }
 
-func get_devices_status() []DeviceStatus {
+func get_devices_status() DeviceStatus {
 	filter := bson.D{}
 	cursor := mongo_read("digital_twin", filter)
 
@@ -79,8 +80,9 @@ func get_devices_status() []DeviceStatus {
 	return data
 }
 
-func parse_dev_status_cursor(cursor *mongo.Cursor) []DeviceStatus {
-	status := []DeviceStatus{}
+func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
+	var total int = 0
+	var active int = 0
 
 	for cursor.Next(db_ctx) {
 		var document_item bson.M
@@ -88,14 +90,18 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) []DeviceStatus {
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println(document_item)
 
-		var item DeviceStatus
-		//item.Name = document_item["device_name"].(string)
-		//item.Active = document_item["active"].(bool)
-		//item.Location = cast_to_string(document_item["location"])
-		//item.Technology = cast_to_string(document_item["technology"])
-		//item.Battery = cast_to_string(document_item["battery_level"])
-		status = append(status, item)
+		total++
+		if document_item["active"].(bool) {
+			active++
+		}
 	}
-	return status
+
+	var device_status DeviceStatus
+	device_status.Total = total
+	device_status.Online = active
+	device_status.Offline = total - active
+
+	return device_status
 }
