@@ -90,7 +90,6 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(document_item)
 
 		total++
 		if document_item["active"].(bool) {
@@ -107,5 +106,31 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 }
 
 func get_current_temp() string {
+	num_items := 5
+	filter := bson.D{}
+	cursor := mongo_read_x_items("device_sensor_data", filter, num_items)
+	temp, humi := parse_current_temp(cursor)
+	fmt.Printf("%f, %f\n", temp, humi)
+	cursor.Close(context.TODO())
 	return "abc"
+}
+
+func parse_current_temp(cursor *mongo.Cursor) (float32, float32) {
+	var sum_temp float32 = 0
+	var sum_humi float32 = 0
+	var items int32 = 0
+
+	for cursor.Next(db_ctx) {
+		var document_item bson.M
+		err := cursor.Decode(&document_item)
+		if err != nil {
+			log.Fatal(err)
+		}
+		items++
+		sum_humi += cast_to_float32(document_item["humidity"])
+		sum_temp += cast_to_float32(document_item["temperature"])
+		fmt.Println(document_item)
+	}
+
+	return sum_temp / float32(items), sum_humi / float32(items)
 }

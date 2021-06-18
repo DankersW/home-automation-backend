@@ -41,6 +41,18 @@ func mongo_read(collection string, filter primitive.D) *mongo.Cursor {
 	return data_cursor
 }
 
+func mongo_read_x_items(collection string, filter primitive.D, items int) *mongo.Cursor {
+
+	options := options.Find().SetLimit(int64(items))
+
+	sensor_data_collection := iot_db.Collection(collection)
+	data_cursor, err := sensor_data_collection.Find(db_ctx, filter, options)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data_cursor
+}
+
 func generate_timestamp_filter(oldest_day_limit int, max_day_limit int) primitive.D {
 	filter := bson.D{
 		primitive.E{
