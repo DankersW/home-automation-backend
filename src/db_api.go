@@ -110,6 +110,11 @@ func get_current_temp() string {
 	filter := bson.D{}
 	cursor := mongo_read_x_items("device_sensor_data", filter, num_items)
 	temp, humi := parse_current_temp(cursor)
+
+	// TODO: Get the average temp per device
+	// TODO: daily average
+	// TODO: Weekly average
+
 	fmt.Printf("%f, %f\n", temp, humi)
 	cursor.Close(context.TODO())
 	return "abc"
