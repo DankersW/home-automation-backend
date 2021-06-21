@@ -105,15 +105,11 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 	return device_status
 }
 
-func get_current_temp() string {
+func get_temp_info() string {
 	num_items := 5
 	filter := bson.D{}
 	cursor := mongo_read_x_items("device_sensor_data", filter, num_items)
 	temp, humi := parse_current_temp(cursor)
-
-	// TODO: Get the average temp per device
-	// TODO: daily average
-	// TODO: Weekly average
 
 	fmt.Printf("%f, %f\n", temp, humi)
 	cursor.Close(context.TODO())
@@ -134,7 +130,6 @@ func parse_current_temp(cursor *mongo.Cursor) (float32, float32) {
 		items++
 		sum_humi += cast_to_float32(document_item["humidity"])
 		sum_temp += cast_to_float32(document_item["temperature"])
-		fmt.Println(document_item)
 	}
 
 	return sum_temp / float32(items), sum_humi / float32(items)
