@@ -43,3 +43,10 @@ type Config struct {
 		Port uint16 `yaml:"port"`
 	}
 }
+
+type TempInfo struct {
+	Current struct {
+		Temp float32 `json:"temp"`
+		Humi float32 `json:"humi"`
+	}
+}

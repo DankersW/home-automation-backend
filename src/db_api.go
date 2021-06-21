@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -105,15 +104,17 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 	return device_status
 }
 
-func get_temp_info() string {
+func get_temp_info() TempInfo {
 	num_items := 5
 	filter := bson.D{}
 	cursor := mongo_read_x_items("device_sensor_data", filter, num_items)
 	temp, humi := parse_current_temp(cursor)
+	var temp_info TempInfo
+	temp_info.Current.Temp = temp
+	temp_info.Current.Humi = humi
 
-	fmt.Printf("%f, %f\n", temp, humi)
 	cursor.Close(context.TODO())
-	return "abc"
+	return temp_info
 }
 
 func parse_current_temp(cursor *mongo.Cursor) (float32, float32) {

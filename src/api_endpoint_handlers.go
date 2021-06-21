@@ -10,9 +10,10 @@ import (
 
 func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
-		"all":                              "/api/",
-		"get all collection names":         "/api/iotDbCollectionNames",
-		"temperature":                      "/api/temp",
+		"all":                      "/api/",
+		"get all collection names": "/api/iotDbCollectionNames",
+		"get one week of temperature stream data":     "/api/temp/stream",
+		"get info about the temperature and humidity": "/api/temp/info",
 		"docker info":                      "/api/docker_info",
 		"digital twin info":                "/api/devices/digital_twin",
 		"connected devices status summary": "/api/devices/status",
@@ -39,7 +40,7 @@ func handler_get_iot_db_collection_names(context *gin.Context) {
 	})
 }
 
-func handler_get_temp(context *gin.Context) {
+func handler_get_temp_stream(context *gin.Context) {
 	temp_data_raw := get_device_sensor_data()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -47,8 +48,8 @@ func handler_get_temp(context *gin.Context) {
 	})
 }
 
-func handler_get_current_temp(context *gin.Context) {
-	data := get_current_temp()
+func handler_get_temp_info(context *gin.Context) {
+	data := get_temp_info()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": data,
