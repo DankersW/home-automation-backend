@@ -38,4 +38,5 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/docker_info", handler_get_docker_info)
 	router_group.GET("/devices/digital_twin", handler_get_devices_digital_twin)
 	router_group.GET("/devices/status", handler_get_devices_status)
+	router_group.GET("/host_info", handler_get_devices_status)
 }
