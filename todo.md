@@ -2,7 +2,7 @@
 
 ## Needed
 
-- API call for the daily/weekly temperature and cpu usage of the server.
+- API call for the weekly temperature and cpu usage of the server.
 
 ## Features
 
