@@ -20,6 +20,20 @@ type DockerInfo struct {
 	Port    string `json:"port"`
 }
 
+type DigitalTwin struct {
+	Name       string `json:"device_name"`
+	Active     bool   `json:"active"`
+	Location   string `json:"location"`
+	Technology string `json:"technology"`
+	Battery    string `json:"battery_level"`
+}
+
+type DeviceStatus struct {
+	Total   int `json:"total"`
+	Online  int `json:"online"`
+	Offline int `json:"offline"`
+}
+
 type Config struct {
 	Mongo struct {
 		Address string `yaml:"address"`
@@ -28,4 +42,16 @@ type Config struct {
 	Api struct {
 		Port uint16 `yaml:"port"`
 	}
+}
+
+type TempInfo struct {
+	Current struct {
+		Temp float32 `json:"temp"`
+		Humi float32 `json:"humi"`
+	}
+}
+
+type HostHealthSummary struct {
+	Temp float32 `json:"temp"`
+	Cpu  float32 `json:"cpu"`
 }

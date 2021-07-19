@@ -10,10 +10,14 @@ import (
 
 func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
-		"all":                     "/api/",
-		"iot_db_collection_names": "/api/iotDbCollectionNames",
-		"temperature":             "/api/temp",
-		"docker info":             "/api/docker_info",
+		"all":                      "/api/",
+		"get all collection names": "/api/iotDbCollectionNames",
+		"get one week of temperature stream data":     "/api/temp/stream",
+		"get info about the temperature and humidity": "/api/temp/info",
+		"docker info":                      "/api/docker_info",
+		"digital twin info":                "/api/devices/digital_twin",
+		"connected devices status summary": "/api/devices/status",
+		"summary of information about the host running the docker app": "/api/host_info",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -37,11 +41,19 @@ func handler_get_iot_db_collection_names(context *gin.Context) {
 	})
 }
 
-func handler_get_temp(context *gin.Context) {
-	temp_data_raw := read_device_sensor_data_collection()
+func handler_get_temp_stream(context *gin.Context) {
+	temp_data_raw := get_device_sensor_data()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": temp_data_raw,
+	})
+}
+
+func handler_get_temp_info(context *gin.Context) {
+	data := get_temp_info()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": data,
 	})
 }
 
@@ -50,5 +62,29 @@ func handler_get_docker_info(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": docker_info,
+	})
+}
+
+func handler_get_devices_digital_twin(context *gin.Context) {
+	device_info := get_digital_twin()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
+	})
+}
+
+func handler_get_devices_status(context *gin.Context) {
+	device_info := get_devices_status()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
+	})
+}
+
+func handler_get_host_info(context *gin.Context) {
+	device_info := get_host_info()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
 	})
 }

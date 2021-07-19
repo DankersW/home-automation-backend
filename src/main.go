@@ -33,6 +33,10 @@ func setup_api_gateway() *gin.Engine {
 func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/", handler_get_all_apis)
 	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names)
-	router_group.GET("/temp", handler_get_temp)
+	router_group.GET("/temp/stream", handler_get_temp_stream)
+	router_group.GET("/temp/info", handler_get_temp_info)
 	router_group.GET("/docker_info", handler_get_docker_info)
+	router_group.GET("/devices/digital_twin", handler_get_devices_digital_twin)
+	router_group.GET("/devices/status", handler_get_devices_status)
+	router_group.GET("/host_info", handler_get_host_info)
 }
