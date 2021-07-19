@@ -50,3 +50,8 @@ type TempInfo struct {
 		Humi float32 `json:"humi"`
 	}
 }
+
+type HostHealthSummary struct {
+	Temp float32 `json:"temp"`
+	Cpu  float32 `json:"cpu"`
+}
