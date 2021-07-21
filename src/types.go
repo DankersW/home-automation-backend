@@ -51,13 +51,12 @@ type TempInfo struct {
 	}
 }
 
+type HostHealth struct {
+	Temp float32 `json:"temp"`
+	Cpu  float32 `json:"cpu"`
+}
+
 type HostHealthSummary struct {
-	Daily struct {
-		Temp float32 `json:"temp"`
-		Cpu  float32 `json:"cpu"`
-	}
-	Current struct {
-		Temp float32 `json:"temp"`
-		Cpu  float32 `json:"cpu"`
-	}
+	Daily   HostHealth
+	Current HostHealth
 }

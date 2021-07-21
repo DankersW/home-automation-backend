@@ -2,8 +2,6 @@
 
 ## Needed
 
-- API call for the daily temperature and cpu usage of the server.
-
 ## Features
 
 - CI: go reference, go reference, build, code coverage
