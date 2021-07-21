@@ -170,3 +170,30 @@ func parse_host_health_summary(cursor *mongo.Cursor) HostHealthSummary {
 
 	return host_health
 }
+
+func get_host_info_stream() []HostHealth {
+	filter := generate_timestamp_filter(1, 0)
+	cursor := mongo_read("host_health", filter)
+
+	stream := parse_host_health_cursor_stream(cursor)
+
+	cursor.Close(context.TODO())
+	return stream
+}
+
+func parse_host_health_cursor_stream(cursor *mongo.Cursor) []HostHealth {
+	data_stream := []HostHealth{}
+	for cursor.Next(db_ctx) {
+		var document_item bson.M
+		err := cursor.Decode(&document_item)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		var item HostHealth
+		item.Cpu = cast_to_float32(document_item["cpu_load"])
+		item.Temp = cast_to_float32(document_item["temperature"])
+		data_stream = append(data_stream, item)
+	}
+	return data_stream
+}

@@ -14,7 +14,6 @@
 - Get daily average temp
 - Get Weekly average temp
 - Fetch outside temperature from 3th party provider
-- Daily cpu and temp usage stream
 
 ## Bugs
 
