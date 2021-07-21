@@ -2,7 +2,7 @@
 
 ## Needed
 
-- API call for the weekly temperature and cpu usage of the server.
+- API call for the daily temperature and cpu usage of the server.
 
 ## Features
 
@@ -16,6 +16,7 @@
 - Get daily average temp
 - Get Weekly average temp
 - Fetch outside temperature from 3th party provider
+- Daily cpu and temp usage stream
 
 ## Bugs
 
