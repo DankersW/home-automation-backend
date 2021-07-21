@@ -17,7 +17,8 @@ func handler_get_all_apis(context *gin.Context) {
 		"docker info":                      "/api/docker_info",
 		"digital twin info":                "/api/devices/digital_twin",
 		"connected devices status summary": "/api/devices/status",
-		"summary of information about the host running the docker app": "/api/host_info",
+		"summary of information about the host running the docker app": "/api/host_health/info",
+		"stream of host health information over the last day":          "/api/host_health/stream",
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -81,8 +82,16 @@ func handler_get_devices_status(context *gin.Context) {
 	})
 }
 
-func handler_get_host_info(context *gin.Context) {
+func handler_get_host_health_info(context *gin.Context) {
 	device_info := get_host_info()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": device_info,
+	})
+}
+
+func handler_get_host_health_stream(context *gin.Context) {
+	device_info := get_host_info_stream()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": device_info,
