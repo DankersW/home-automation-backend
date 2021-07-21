@@ -150,20 +150,23 @@ func parse_host_health_summary(cursor *mongo.Cursor) HostHealthSummary {
 	var items int32 = 0
 	var total_cpu float32 = 0
 	var total_temp float32 = 0
+	var host_health HostHealthSummary
 	for cursor.Next(db_ctx) {
 		var document_item bson.M
 		err := cursor.Decode(&document_item)
 		if err != nil {
 			log.Fatal(err)
 		}
-		items++
 		total_cpu += cast_to_float32(document_item["cpu_load"])
 		total_temp += cast_to_float32(document_item["temperature"])
+		if items == 0 {
+			host_health.Current.Cpu = total_cpu
+			host_health.Current.Temp = total_temp
+		}
+		items++
 	}
-
-	var host_health HostHealthSummary
-	host_health.Temp = total_temp / float32(items)
-	host_health.Cpu = total_cpu / float32(items)
+	host_health.Daily.Temp = total_temp / float32(items)
+	host_health.Daily.Cpu = total_cpu / float32(items)
 
 	return host_health
 }
