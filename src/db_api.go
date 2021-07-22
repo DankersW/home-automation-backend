@@ -132,6 +132,7 @@ func get_temp_info() TempInfo {
 func get_avarage_temp_humi_from_cursor(cursor *mongo.Cursor) (float32, float32) {
 	var sum_temp float32 = 0
 	var sum_humi float32 = 0
+	var average_temp, average_humi float32 = 0, 0
 	var items int32 = 0
 
 	for cursor.Next(db_ctx) {
@@ -145,7 +146,12 @@ func get_avarage_temp_humi_from_cursor(cursor *mongo.Cursor) (float32, float32) 
 		sum_temp += cast_to_float32(document_item["temperature"])
 	}
 
-	return sum_temp / float32(items), sum_humi / float32(items)
+	if items != 0 {
+		average_temp = sum_temp / float32(items)
+		average_humi = sum_humi / float32(items)
+	}
+
+	return average_temp, average_humi
 }
 
 func get_host_info() HostHealthSummary {
