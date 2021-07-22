@@ -1,5 +1,7 @@
 # Todo
 
+Fetch temperature from SMHI website: http://opendata.smhi.se/apidocs/metfcst/examples.html
+
 ## Needed
 
 ## Features
