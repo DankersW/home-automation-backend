@@ -39,5 +39,5 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/devices/digital_twin", handler_get_devices_digital_twin)
 	router_group.GET("/devices/status", handler_get_devices_status)
 	router_group.GET("/host_health/info", handler_get_host_health_info)
-	router_group.GET("/host_helath/stream", handler_get_host_health_stream)
+	router_group.GET("/host_heath/stream", handler_get_host_health_stream)
 }
