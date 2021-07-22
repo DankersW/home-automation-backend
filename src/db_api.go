@@ -106,20 +106,33 @@ func parse_dev_status_cursor(cursor *mongo.Cursor) DeviceStatus {
 
 func get_temp_info() TempInfo {
 	num_items := 5
-	filter := bson.D{}
-	cursor := mongo_read_x_items("device_sensor_data", filter, num_items)
-	temp, humi := parse_current_temp(cursor)
+	current_filter := bson.D{}
+	day_filter := generate_timestamp_filter(1, 0)
+	week_filter := generate_timestamp_filter(7, 0)
+	current_cursor := mongo_read_x_items("device_sensor_data", current_filter, num_items)
+	day_cursor := mongo_read("device_sensor_data", day_filter)
+	week_cursor := mongo_read("device_sensor_data", week_filter)
+	current_temp, current_humi := get_avarage_temp_humi_from_cursor(current_cursor)
+	day_temp, day_humi := get_avarage_temp_humi_from_cursor(day_cursor)
+	week_temp, week_humi := get_avarage_temp_humi_from_cursor(week_cursor)
 	var temp_info TempInfo
-	temp_info.Current.Temp = temp
-	temp_info.Current.Humi = humi
+	temp_info.Current.Temp = current_temp
+	temp_info.Daily.Temp = day_temp
+	temp_info.Weekly.Temp = week_temp
+	temp_info.Current.Humi = current_humi
+	temp_info.Daily.Humi = day_humi
+	temp_info.Weekly.Humi = week_humi
 
-	cursor.Close(context.TODO())
+	current_cursor.Close(context.TODO())
+	day_cursor.Close(context.TODO())
+	week_cursor.Close(context.TODO())
 	return temp_info
 }
 
-func parse_current_temp(cursor *mongo.Cursor) (float32, float32) {
+func get_avarage_temp_humi_from_cursor(cursor *mongo.Cursor) (float32, float32) {
 	var sum_temp float32 = 0
 	var sum_humi float32 = 0
+	var average_temp, average_humi float32 = 0, 0
 	var items int32 = 0
 
 	for cursor.Next(db_ctx) {
@@ -133,7 +146,12 @@ func parse_current_temp(cursor *mongo.Cursor) (float32, float32) {
 		sum_temp += cast_to_float32(document_item["temperature"])
 	}
 
-	return sum_temp / float32(items), sum_humi / float32(items)
+	if items != 0 {
+		average_temp = sum_temp / float32(items)
+		average_humi = sum_humi / float32(items)
+	}
+
+	return average_temp, average_humi
 }
 
 func get_host_info() HostHealthSummary {

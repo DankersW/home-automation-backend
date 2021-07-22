@@ -44,11 +44,15 @@ type Config struct {
 	}
 }
 
+type TempHumi struct {
+	Temp float32 `json:"temp"`
+	Humi float32 `json:"humi"`
+}
+
 type TempInfo struct {
-	Current struct {
-		Temp float32 `json:"temp"`
-		Humi float32 `json:"humi"`
-	}
+	Current TempHumi
+	Daily   TempHumi
+	Weekly  TempHumi
 }
 
 type HostHealth struct {
