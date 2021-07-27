@@ -4,3 +4,6 @@ mongo:
 
 api:
   port: 4000
+
+open_weather:
+  key: "2634af517df0613c4c7f5a9b5150f724"

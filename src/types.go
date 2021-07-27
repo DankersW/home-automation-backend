@@ -42,6 +42,11 @@ type Config struct {
 	Api struct {
 		Port uint16 `yaml:"port"`
 	}
+	Weather struct {
+		Key string  `yaml:"key"`
+		Lat float64 `yaml:"lat"`
+		Lon float64 `yaml:"lon"`
+	}
 }
 
 type TempHumi struct {
@@ -63,4 +68,12 @@ type HostHealth struct {
 type HostHealthSummary struct {
 	Daily   HostHealth
 	Current HostHealth
+}
+
+type ExternalWeather struct {
+	Temp      float64 `json:"temp"`
+	FeelsLike float64 `json:"feels_like"`
+	Pressure  int     `json:"pressure"`
+	Humidity  int     `json:"humidity"`
+	Weather   string  `json:"weather"`
 }
