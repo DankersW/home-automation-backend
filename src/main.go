@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -17,8 +15,9 @@ func init() {
 }
 
 func main() {
-	api_port := fmt.Sprintf(":%d", config.Api.Port)
-	api_gateway.Run(api_port)
+	//api_port := fmt.Sprintf(":%d", config.Api.Port)
+	//api_gateway.Run(api_port)
+	pull()
 }
 
 func setup_api_gateway() *gin.Engine {

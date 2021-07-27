@@ -5,4 +5,4 @@ mongo:
   port: 27017
 
 api:
-  port: 4000
+  port: 7000
