@@ -42,6 +42,11 @@ type Config struct {
 	Api struct {
 		Port uint16 `yaml:"port"`
 	}
+	Weather struct {
+		Key string  `yaml:"key"`
+		Lat float64 `yaml:"lat"`
+		Lon float64 `yaml:"lon"`
+	}
 }
 
 type TempHumi struct {
