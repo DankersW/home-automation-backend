@@ -5,5 +5,7 @@ mongo:
 api:
   port: 4000
 
-open_weather:
+weather:
   key: "2634af517df0613c4c7f5a9b5150f724"
+  lon: 11.9746
+  lat: 57.7089
