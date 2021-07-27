@@ -12,11 +12,12 @@ func handler_get_all_apis(context *gin.Context) {
 	apis := map[string]string{
 		"all":                      "/api/",
 		"get all collection names": "/api/iotDbCollectionNames",
-		"get one week of temperature stream data":     "/api/temp/stream",
-		"get info about the temperature and humidity": "/api/temp/info",
-		"docker info":                      "/api/docker_info",
-		"digital twin info":                "/api/devices/digital_twin",
-		"connected devices status summary": "/api/devices/status",
+		"get one week of temperature stream data":                      "/api/temp/stream",
+		"get info about the temperature and humidity":                  "/api/temp/info",
+		"predicted outdoor temp":                                       "/api/temp/predicted",
+		"docker info":                                                  "/api/docker_info",
+		"digital twin info":                                            "/api/devices/digital_twin",
+		"connected devices status summary":                             "/api/devices/status",
 		"summary of information about the host running the docker app": "/api/host_health/info",
 		"stream of host health information over the last day":          "/api/host_health/stream",
 	}
@@ -52,6 +53,13 @@ func handler_get_temp_stream(context *gin.Context) {
 
 func handler_get_temp_info(context *gin.Context) {
 	data := get_temp_info()
+	context.JSON(http.StatusOK, gin.H{
+		"code":    http.StatusOK,
+		"message": data,
+	})
+}
+func handler_get_outdoor_temp_prediction(context *gin.Context) {
+	data := get_external_weather()
 	context.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": data,

@@ -17,10 +17,8 @@ func init() {
 }
 
 func main() {
-	//api_port := fmt.Sprintf(":%d", config.Api.Port)
-	//api_gateway.Run(api_port)
-	d := get_external_weather()
-	fmt.Println(d.FeelsLike)
+	api_port := fmt.Sprintf(":%d", config.Api.Port)
+	api_gateway.Run(api_port)
 }
 
 func setup_api_gateway() *gin.Engine {
@@ -37,6 +35,7 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names)
 	router_group.GET("/temp/stream", handler_get_temp_stream)
 	router_group.GET("/temp/info", handler_get_temp_info)
+	router_group.GET("/temp/predicted", handler_get_outdoor_temp_prediction)
 	router_group.GET("/docker_info", handler_get_docker_info)
 	router_group.GET("/devices/digital_twin", handler_get_devices_digital_twin)
 	router_group.GET("/devices/status", handler_get_devices_status)
