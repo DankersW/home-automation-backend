@@ -64,3 +64,11 @@ type HostHealthSummary struct {
 	Daily   HostHealth
 	Current HostHealth
 }
+
+type ExternalWeather struct {
+	Temp      float64 `json:"temp"`
+	FeelsLike float64 `json:"feels_like"`
+	Pressure  int     `json:"pressure"`
+	Humidity  int     `json:"humidity"`
+	Weather   string  `json:"weather"`
+}
