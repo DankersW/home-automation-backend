@@ -13,7 +13,8 @@ Fetch temperature from SMHI website: http://opendata.smhi.se/apidocs/metfcst/exa
 - [Linting action](https://github.com/wearerequired/lint-action)
 - Orginize main src folder with [subfolders](https://stackoverflow.com/questions/23154898/break-up-go-project-into-subfolders)
 - Get the average temp per device
-- Fetch outside temperature from 3th party provider
+- Re-orginize the /api call
+- combine all the boiler plate code to create a new api handler
 
 ## Bugs
 
