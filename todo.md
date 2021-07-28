@@ -15,6 +15,7 @@ Fetch temperature from SMHI website: http://opendata.smhi.se/apidocs/metfcst/exa
 - Get the average temp per device
 - Re-orginize the /api call
 - combine all the boiler plate code to create a new api handler
+- reduce docker container size
 
 ## Bugs
 
