@@ -9,7 +9,7 @@ import (
 )
 
 func get_config() Config {
-	conf, err := read_yml_file("../config.yml")
+	conf, err := read_yml_file("config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
