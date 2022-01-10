@@ -4,6 +4,10 @@ Fetch temperature from SMHI website: http://opendata.smhi.se/apidocs/metfcst/exa
 
 ## Needed
 
+- logging
+- package everything up
+- neater endpoints
+
 ## Features
 
 - CI: go reference, go reference, build, code coverage

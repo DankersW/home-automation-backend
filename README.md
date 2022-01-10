@@ -4,5 +4,5 @@
 
 ```sh
 cd src/
-go build -o ../build && .././build/home-automation-backend
+go build && ./home-automation-backend
 ```
