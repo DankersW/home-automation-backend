@@ -20,11 +20,13 @@ func New(httpApiPort string) (Server, error) {
 
 	restServer := NewGin(httpApiPort)
 
+	handlers := NewHandlers(restServer.GetRoutes)
+
 	s := &server{
 		restServer: restServer,
 	}
 
-	restRoutes := getRestRoutes()
+	restRoutes := handlers.getRestRoutes()
 	s.restServer.AddRoutes(restRoutes)
 
 	return s, nil
