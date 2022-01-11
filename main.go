@@ -47,7 +47,7 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 }
 
 func main() {
-	server, err := server.New("localhost:4000")
+	server, err := server.New(":4000")
 	if err != nil {
 		log.Error("Failed to create server")
 	}
