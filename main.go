@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -52,4 +54,11 @@ func main() {
 		log.Error("Failed to create server")
 	}
 	server.Start()
+
+	quit := make(chan os.Signal, 10)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+
+	server.Close()
+	log.Info("done")
 }

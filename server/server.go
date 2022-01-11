@@ -1,11 +1,13 @@
 package server
 
 import (
+	"context"
+
 	log "github.com/sirupsen/logrus"
 )
 
 type server struct {
-	httpApi GinI
+	restServer GinI
 }
 
 type Server interface {
@@ -16,24 +18,20 @@ type Server interface {
 func New(httpApiPort string) (Server, error) {
 	log.Info("New Server created")
 
-	g, err := NewGin(httpApiPort)
-	if err != nil {
-		log.Error("Failed to create Gin server, %s", err.Error())
-		return nil, err
-	}
+	restServer := NewGin(httpApiPort)
 
 	s := &server{
-		httpApi: g,
+		restServer: restServer,
 	}
 	return s, nil
 }
 
 func (s *server) Start() {
 	log.Info("Server started")
-	s.httpApi.Start()
+	go s.restServer.Start()
 }
 
 func (s *server) Close() {
 	log.Info("Closing server")
-	s.httpApi.Close()
+	s.restServer.Close(context.Background())
 }
