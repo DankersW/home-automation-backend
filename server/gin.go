@@ -14,6 +14,8 @@ const (
 	NAME      = "Gin REST server"
 )
 
+type Callback func(*gin.Context)
+
 type ginWF struct {
 	addr   string
 	router *gin.Engine
@@ -25,6 +27,7 @@ type GinI interface {
 	Start()
 	Close(ctx context.Context)
 	GetRoutes() gin.RoutesInfo
+	AddHandler(method string, uri string, callback Callback)
 }
 
 func NewGin(port string) GinI {
@@ -56,6 +59,10 @@ func (g *ginWF) Close(ctx context.Context) {
 		log.Fatalf("Failed to Shutdown, %s", err.Error())
 	}
 	log.Infof("%s stopped", NAME)
+}
+
+func (g *ginWF) AddHandler(method string, uri string, callback Callback) {
+	g.group.Handle(method, uri, gin.HandlerFunc(callback))
 }
 
 func (g *ginWF) GetRoutes() gin.RoutesInfo {
