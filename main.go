@@ -5,18 +5,21 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/dankersw/home-automation-backend/server"
 )
 
 var api_gateway *gin.Engine
 var config Config
 
-func init() {
+func old_init() {
 	config = get_config()
 	api_gateway = setup_api_gateway()
 	connect_to_mongo()
 }
 
-func main() {
+func old_main() {
 	api_port := fmt.Sprintf(":%d", config.Api.Port)
 	api_gateway.Run(api_port)
 }
@@ -41,4 +44,12 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/devices/status", handler_get_devices_status)
 	router_group.GET("/host_health/info", handler_get_host_health_info)
 	router_group.GET("/host_heath/stream", handler_get_host_health_stream)
+}
+
+func main() {
+	server, err := server.New("localhost:4000")
+	if err != nil {
+		log.Error("Failed to create server")
+	}
+	server.Start()
 }

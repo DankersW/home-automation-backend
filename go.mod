@@ -13,6 +13,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
+	github.com/sirupsen/logrus v1.4.2
 	go.mongodb.org/mongo-driver v1.5.1
 	google.golang.org/grpc v1.37.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
