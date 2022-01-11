@@ -15,10 +15,10 @@ type Server interface {
 	Close()
 }
 
-func New(httpApiPort string) (Server, error) {
+func New(restServerPort string) (Server, error) {
 	log.Info("New Server created")
 
-	restServer := NewGin(httpApiPort)
+	restServer := NewGin(restServerPort)
 
 	handlers := NewHandlers(restServer.GetRoutes)
 
