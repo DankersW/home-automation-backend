@@ -14,7 +14,14 @@ const (
 	NAME      = "Gin REST server"
 )
 
-type Callback func(*gin.Context)
+type GinCallback func(*gin.Context)
+
+type RestRoute struct {
+	method   string
+	uri      string
+	callback GinCallback
+}
+type RestRoutes []RestRoute
 
 type ginWF struct {
 	addr   string
@@ -25,9 +32,10 @@ type ginWF struct {
 
 type GinI interface {
 	Start()
-	Close(ctx context.Context)
-	GetRoutes() gin.RoutesInfo
-	AddHandler(method string, uri string, callback Callback)
+	Close(context.Context)
+	GetRoutes() RestRoutes
+	AddRoute(RestRoute)
+	AddRoutes(RestRoutes)
 }
 
 func NewGin(port string) GinI {
@@ -61,10 +69,21 @@ func (g *ginWF) Close(ctx context.Context) {
 	log.Infof("%s stopped", NAME)
 }
 
-func (g *ginWF) AddHandler(method string, uri string, callback Callback) {
-	g.group.Handle(method, uri, gin.HandlerFunc(callback))
+func (g *ginWF) AddRoute(route RestRoute) {
+	g.group.Handle(route.method, route.uri, gin.HandlerFunc(route.callback))
 }
 
-func (g *ginWF) GetRoutes() gin.RoutesInfo {
-	return g.router.Routes()
+func (g *ginWF) AddRoutes(routes RestRoutes) {
+	for _, route := range routes {
+		g.group.Handle(route.method, route.uri, gin.HandlerFunc(route.callback))
+	}
+}
+
+func (g *ginWF) GetRoutes() RestRoutes {
+	routes := RestRoutes{}
+	for _, routeInfo := range g.router.Routes() {
+		route := RestRoute{method: routeInfo.Method, uri: routeInfo.Path, callback: GinCallback(routeInfo.HandlerFunc)}
+		routes = append(routes, route)
+	}
+	return routes
 }
