@@ -30,7 +30,7 @@ func New(restServerPort string) (Server, error) {
 
 	endpoints := api.New()
 
-	handlers := NewHandlers(restServer.GetRoutes, endpoints)
+	handlers := NewRouteHandler(restServer.GetRoutes, endpoints)
 	restRoutes := handlers.getRestRoutes()
 	s := &server{
 		restServer: restServer,
