@@ -6,6 +6,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+type RestRoute struct {
+	method   string
+	uri      string
+	callback ginCallback
+}
+type RestRoutes []RestRoute
+
 type server struct {
 	restServer GinI
 }
@@ -19,14 +26,11 @@ func New(restServerPort string) (Server, error) {
 	log.Info("New Server created")
 
 	restServer := NewGin(restServerPort)
-
 	handlers := NewHandlers(restServer.GetRoutes)
-
+	restRoutes := handlers.getRestRoutes()
 	s := &server{
 		restServer: restServer,
 	}
-
-	restRoutes := handlers.getRestRoutes()
 	s.restServer.AddRoutes(restRoutes)
 
 	return s, nil

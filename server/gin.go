@@ -14,14 +14,7 @@ const (
 	NAME      = "Gin REST server"
 )
 
-type GinCallback func(*gin.Context)
-
-type RestRoute struct {
-	method   string
-	uri      string
-	callback GinCallback
-}
-type RestRoutes []RestRoute
+type ginCallback func(*gin.Context)
 
 type ginWF struct {
 	addr   string
@@ -82,7 +75,7 @@ func (g *ginWF) AddRoutes(routes RestRoutes) {
 func (g *ginWF) GetRoutes() RestRoutes {
 	routes := RestRoutes{}
 	for _, routeInfo := range g.router.Routes() {
-		route := RestRoute{method: routeInfo.Method, uri: routeInfo.Path, callback: GinCallback(routeInfo.HandlerFunc)}
+		route := RestRoute{method: routeInfo.Method, uri: routeInfo.Path, callback: ginCallback(routeInfo.HandlerFunc)}
 		routes = append(routes, route)
 	}
 	return routes

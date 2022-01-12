@@ -19,7 +19,7 @@ func NewHandlers(activeRoutes func() RestRoutes) *apiRecources {
 }
 
 func (a *apiRecources) getRestRoutes() RestRoutes {
-	route := func(method string, uri string, callback GinCallback) RestRoute {
+	route := func(method string, uri string, callback ginCallback) RestRoute {
 		return RestRoute{method: method, uri: uri, callback: callback}
 	}
 	routes := RestRoutes{
