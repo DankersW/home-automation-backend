@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 
+	"github.com/dankersw/home-automation-backend/api"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -26,7 +27,10 @@ func New(restServerPort string) (Server, error) {
 	log.Info("New Server created")
 
 	restServer := NewGin(restServerPort)
-	handlers := NewHandlers(restServer.GetRoutes)
+
+	endpoints := api.New()
+
+	handlers := NewHandlers(restServer.GetRoutes, endpoints)
 	restRoutes := handlers.getRestRoutes()
 	s := &server{
 		restServer: restServer,
