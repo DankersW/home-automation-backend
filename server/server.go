@@ -23,12 +23,12 @@ type Server interface {
 	Close()
 }
 
-func New(restServerPort string) (Server, error) {
+func New(ctx context.Context, restServerPort string) (Server, error) {
 	log.Info("New Server created")
 
 	restServer := NewGin(restServerPort)
 
-	endpoints := api.New()
+	endpoints := api.New(ctx)
 
 	handlers := NewRouteHandler(restServer.GetRoutes, endpoints)
 	restRoutes := handlers.getRestRoutes()

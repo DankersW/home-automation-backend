@@ -28,7 +28,7 @@ func (r *routeHandler) getRestRoutes() RestRoutes {
 	routes := RestRoutes{
 		route(http.MethodGet, "/", r.allRoutes),
 		route(http.MethodGet, "/hello", helloWorld),
-		route(http.MethodGet, "/db", r.api.DbCall),
+		route(http.MethodGet, "/iotDbCollectionNames", r.api.GetDbCollectionNames),
 	}
 	return routes
 }

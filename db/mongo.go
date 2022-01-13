@@ -18,7 +18,7 @@ type mongoDb struct {
 	ctx context.Context
 }
 type MongoDb interface {
-	Get(collectionName string, filter primitive.D) (*mongo.Cursor, error)
+	Get(collectionName string, filter primitive.D, options *options.FindOptions) (*mongo.Cursor, error)
 }
 
 func newMongoDb(ctx context.Context, usr string, pwd string, addr string, port int) (MongoDb, error) {
@@ -48,9 +48,9 @@ func connectToDb(ctx context.Context, uri string) (*mongo.Database, error) {
 	return client.Database(DB), nil
 }
 
-func (m *mongoDb) Get(collectionName string, filter primitive.D) (*mongo.Cursor, error) {
+func (m *mongoDb) Get(collectionName string, filter primitive.D, options *options.FindOptions) (*mongo.Cursor, error) {
 	collection := m.dbi.Collection(collectionName)
-	data, err := collection.Find(m.ctx, filter)
+	data, err := collection.Find(m.ctx, filter, options)
 	if err != nil {
 		return nil, err
 	}

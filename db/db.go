@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const (
@@ -18,7 +20,7 @@ type db struct {
 	mongoDb MongoDb
 }
 type Db interface {
-	Get()
+	Get(collectionName string)
 }
 
 func New(ctx context.Context) (Db, error) {
@@ -33,7 +35,13 @@ func New(ctx context.Context) (Db, error) {
 	return d, nil
 }
 
-func (d *db) Get() {
-	d.mongoDb.Get("test", bson.D{})
-	fmt.Println("get")
+func (d *db) Get(collectionName string) {
+	filter := bson.D{}
+	options := options.Find()
+	data, err := d.mongoDb.Get(collectionName, filter, options)
+	if err != nil {
+		log.Warnf("Read error, %s", err.Error())
+		return
+	}
+	log.Info(data)
 }
