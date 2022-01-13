@@ -21,6 +21,7 @@ type db struct {
 }
 type Db interface {
 	Get(collectionName string)
+	FetchCollectionNames()
 }
 
 func New(ctx context.Context) (Db, error) {
@@ -45,4 +46,8 @@ func (d *db) Get(collectionName string) {
 		return
 	}
 	log.Info(data)
+}
+
+func (d *db) FetchCollectionNames() {
+	d.mongoDb.ListCollectionNames()
 }

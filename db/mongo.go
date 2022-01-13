@@ -4,6 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	log "github.com/sirupsen/logrus"
+
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -19,6 +22,7 @@ type mongoDb struct {
 }
 type MongoDb interface {
 	Get(collectionName string, filter primitive.D, options *options.FindOptions) (*mongo.Cursor, error)
+	ListCollectionNames() error
 }
 
 func newMongoDb(ctx context.Context, usr string, pwd string, addr string, port int) (MongoDb, error) {
@@ -55,4 +59,14 @@ func (m *mongoDb) Get(collectionName string, filter primitive.D, options *option
 		return nil, err
 	}
 	return data, nil
+}
+
+func (m *mongoDb) ListCollectionNames() error {
+	filter := bson.D{{}}
+	names, err := m.dbi.ListCollectionNames(m.ctx, filter)
+	if err != nil {
+		return err
+	}
+	log.Warnf("all names %s", names)
+	return nil
 }

@@ -29,6 +29,7 @@ func New(ctx context.Context) Api {
 }
 
 func (a *api) GetDbCollectionNames(context *gin.Context) {
+	a.dbi.FetchCollectionNames()
 	a.dbi.Get("a")
 	log.Info("a db call")
 }
