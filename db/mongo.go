@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -44,4 +45,13 @@ func connectToDb(ctx context.Context, uri string) (*mongo.Database, error) {
 		return nil, fmt.Errorf("failed to contact mongoDB, %s", err.Error())
 	}
 	return client.Database(DB), nil
+}
+
+func (m *mongoDb) Get(collectionName string, filter primitive.D) (*mongo.Cursor, error) {
+	collection := m.dbi.Collection(collectionName)
+	data, err := collection.Find(m.ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }
