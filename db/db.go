@@ -28,6 +28,7 @@ func New(ctx context.Context) (Db, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create MongoDb instance, %s", err.Error())
 	}
+	log.Info("Successfully connected to MongoDb")
 
 	d := &db{
 		mongoDb: mongoDb,

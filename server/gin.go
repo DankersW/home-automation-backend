@@ -32,6 +32,7 @@ type GinI interface {
 }
 
 func NewGin(port string) GinI {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Use(cors.Default())
 	apiGroup := router.Group(API_GROUP)

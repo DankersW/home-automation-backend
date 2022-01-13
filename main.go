@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -54,7 +53,7 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 
 func main() {
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Second*5))
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	/*
