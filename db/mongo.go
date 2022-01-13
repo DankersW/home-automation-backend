@@ -18,16 +18,17 @@ type mongoDb struct {
 	ctx context.Context
 }
 type MongoDb interface {
+	Get(collectionName string, filter primitive.D) (*mongo.Cursor, error)
 }
 
-func NewMongoDb(ctx context.Context, usr string, pwd string, addr string, port int) (MongoDb, error) {
+func newMongoDb(ctx context.Context, usr string, pwd string, addr string, port int) (MongoDb, error) {
 	mongoUri := fmt.Sprintf("mongodb://%s:%s@%s:%d/", usr, pwd, addr, port)
 	dbi, err := connectToDb(ctx, mongoUri)
 	if err != nil {
 		return nil, err
 	}
 
-	m := mongoDb{
+	m := &mongoDb{
 		dbi: dbi,
 		ctx: ctx,
 	}
@@ -42,7 +43,7 @@ func connectToDb(ctx context.Context, uri string) (*mongo.Database, error) {
 	}
 
 	if err := client.Ping(ctx, nil); err != nil {
-		return nil, fmt.Errorf("failed to contact mongoDB, %s", err.Error())
+		return nil, fmt.Errorf("could not make contact with mongoDB, %s", err.Error())
 	}
 	return client.Database(DB), nil
 }

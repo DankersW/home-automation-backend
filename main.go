@@ -1,15 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"os"
-	"os/signal"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/dankersw/home-automation-backend/server"
+	//"github.com/dankersw/home-automation-backend/server"
+	"github.com/dankersw/home-automation-backend/db"
 )
 
 var api_gateway *gin.Engine
@@ -49,16 +50,30 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 }
 
 func main() {
-	server, err := server.New(":4000")
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(time.Second*1))
+	defer cancel()
+
+	dbi, err := db.New(ctx)
 	if err != nil {
-		log.Error("Failed to create server")
+		log.Errorf("DB setup error. %s", err.Error())
+		return
 	}
-	server.Start()
+	dbi.Get()
 
-	quit := make(chan os.Signal, 10)
-	signal.Notify(quit, os.Interrupt)
-	<-quit
+	/*
+		// SERVER CODE
+		server, err := server.New(":4000")
+		if err != nil {
+			log.Error("Failed to create server")
+		}
+		server.Start()
 
-	server.Close()
+		quit := make(chan os.Signal, 10)
+		signal.Notify(quit, os.Interrupt)
+		<-quit
+
+		server.Close()
+	*/
 	log.Info("done")
 }
