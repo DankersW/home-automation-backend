@@ -27,16 +27,12 @@ func (r *routeHandler) getRestRoutes() RestRoutes {
 	}
 	routes := RestRoutes{
 		route(http.MethodGet, "/", r.allRoutes),
-		route(http.MethodGet, "/hello", helloWorld),
 		route(http.MethodGet, "/iotDbCollectionNames", r.api.GetDbCollectionNames),
+		route(http.MethodGet, "/sensor/data", r.api.GetSensorData),
 	}
 	return routes
 }
 
 func (r *routeHandler) allRoutes(context *gin.Context) {
 	log.Infof("All active routes: %v", r.activeRoutes())
-}
-
-func helloWorld(context *gin.Context) {
-	log.Info("world")
 }

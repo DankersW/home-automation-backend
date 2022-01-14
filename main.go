@@ -39,8 +39,8 @@ func setup_api_gateway() *gin.Engine {
 }
 
 func setup_api_endpoints(router_group *gin.RouterGroup) {
-	router_group.GET("/", handler_get_all_apis)
-	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names)
+	router_group.GET("/", handler_get_all_apis)                                    // done
+	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names) // done
 	router_group.GET("/temp/stream", handler_get_temp_stream)
 	router_group.GET("/temp/info", handler_get_temp_info)
 	router_group.GET("/temp/predicted", handler_get_outdoor_temp_prediction)
@@ -52,20 +52,9 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 }
 
 func main() {
-
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	/*
-		dbi, err := db.New(ctx)
-		if err != nil {
-			log.Errorf("DB setup error. %s", err.Error())
-			return
-		}
-		dbi.Get("test")
-		return
-	*/
-	// SERVER CODE
 	server, err := server.New(ctx, ":4000")
 	if err != nil {
 		log.Error("Failed to create server")
