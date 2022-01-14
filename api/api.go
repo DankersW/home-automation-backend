@@ -30,7 +30,7 @@ func New(ctx context.Context) Api {
 	return a
 }
 
-func reply(gc *gin.Context, code int, data interface{}, err error) {
+func Reply(gc *gin.Context, code int, data interface{}, err error) {
 	var content gin.H
 	if err != nil {
 		content = gin.H{"error": err.Error()}
@@ -43,14 +43,14 @@ func reply(gc *gin.Context, code int, data interface{}, err error) {
 func (a *api) GetDbCollectionNames(gc *gin.Context) {
 	names, err := a.dbi.FetchCollectionNames()
 	if err != nil {
-		reply(gc, http.StatusInternalServerError, nil, err)
+		Reply(gc, http.StatusInternalServerError, nil, err)
 	} else {
-		reply(gc, http.StatusOK, names, err)
+		Reply(gc, http.StatusOK, names, err)
 	}
 }
 
 func (a *api) GetSensorData(gc *gin.Context) {
-	reply(gc, http.StatusOK, "hi", nil)
+	Reply(gc, http.StatusOK, "hi", nil)
 	/*
 		filter := generate_timestamp_filter(7, 0)
 		cursor := mongo_read("device_sensor_data", filter)

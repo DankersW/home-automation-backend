@@ -1,5 +1,7 @@
 package models
 
-type Routes struct {
-	V string
+type Route struct {
+	Method string `json:"method"`
+	Uri    string `json:"uri"`
 }
+type Routes []Route
