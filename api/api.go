@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/dankersw/home-automation-backend/db"
 	"github.com/gin-gonic/gin"
@@ -28,8 +29,21 @@ func New(ctx context.Context) Api {
 	return a
 }
 
-func (a *api) GetDbCollectionNames(context *gin.Context) {
-	a.dbi.FetchCollectionNames()
-	a.dbi.Get("a")
-	log.Info("a db call")
+func (a *api) GetDbCollectionNames(gc *gin.Context) {
+	names, err := a.dbi.FetchCollectionNames()
+	if err != nil {
+		response(gc, http.StatusInternalServerError, nil, err)
+	} else {
+		response(gc, http.StatusOK, names, err)
+	}
+}
+
+func response(gc *gin.Context, code int, data interface{}, err error) {
+	var content gin.H
+	if err != nil {
+		content = gin.H{"error": err.Error()}
+	} else {
+		content = gin.H{"data": data}
+	}
+	gc.JSON(code, content)
 }
