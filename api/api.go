@@ -50,6 +50,13 @@ func (a *api) GetDbCollectionNames(gc *gin.Context) {
 }
 
 func (a *api) GetSensorData(gc *gin.Context) {
+
+	filter := a.dbi.TimestampBetween(7, 0)
+
+	log.Info(filter)
+
+	a.dbi.GetWithFilter("device_sensor_data", filter)
+
 	Reply(gc, http.StatusOK, "hi", nil)
 	/*
 		filter := generate_timestamp_filter(7, 0)

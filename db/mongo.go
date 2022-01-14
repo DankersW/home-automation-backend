@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -19,8 +20,9 @@ type mongoDb struct {
 	ctx context.Context
 }
 type MongoDb interface {
-	Get(collectionName string, filter primitive.D, options *options.FindOptions) (*mongo.Cursor, error)
+	Get(string, primitive.D, *options.FindOptions) (*mongo.Cursor, error)
 	ListCollectionNames() ([]string, error)
+	TimestampBetween(int, int) primitive.D
 }
 
 func newMongoDb(ctx context.Context, usr string, pwd string, addr string, port int) (MongoDb, error) {
@@ -66,4 +68,17 @@ func (m *mongoDb) ListCollectionNames() ([]string, error) {
 		return nil, err
 	}
 	return names, nil
+}
+
+// Generates a timestamp filter between a start day and nr of days in the past
+func (m *mongoDb) TimestampBetween(nrDays int, startDay int) primitive.D {
+	filter := bson.D{
+		primitive.E{
+			Key: "timestamp", Value: bson.D{primitive.E{
+				Key: "$gte", Value: primitive.NewDateTimeFromTime(time.Now().AddDate(0, 0, -nrDays))}}},
+		primitive.E{
+			Key: "timestamp", Value: bson.D{primitive.E{
+				Key: "$lte", Value: primitive.NewDateTimeFromTime(time.Now().AddDate(0, 0, -startDay))}}},
+	}
+	return filter
 }
