@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/dankersw/home-automation-backend/api"
+	"github.com/dankersw/home-automation-backend/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -34,5 +35,7 @@ func (r *routeHandler) getRestRoutes() RestRoutes {
 }
 
 func (r *routeHandler) allRoutes(context *gin.Context) {
+	x := models.Routes{V: "hee"}
+	log.Info(x)
 	log.Infof("All active routes: %v", r.activeRoutes())
 }
