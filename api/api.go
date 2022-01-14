@@ -32,13 +32,13 @@ func New(ctx context.Context) Api {
 func (a *api) GetDbCollectionNames(gc *gin.Context) {
 	names, err := a.dbi.FetchCollectionNames()
 	if err != nil {
-		response(gc, http.StatusInternalServerError, nil, err)
+		reply(gc, http.StatusInternalServerError, nil, err)
 	} else {
-		response(gc, http.StatusOK, names, err)
+		reply(gc, http.StatusOK, names, err)
 	}
 }
 
-func response(gc *gin.Context, code int, data interface{}, err error) {
+func reply(gc *gin.Context, code int, data interface{}, err error) {
 	var content gin.H
 	if err != nil {
 		content = gin.H{"error": err.Error()}
