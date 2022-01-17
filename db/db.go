@@ -22,8 +22,8 @@ type db struct {
 	mongoDb MongoDb
 }
 type Db interface {
-	Get(collectionName string)
-	GetWithFilter(collectionName string, filter primitive.D)
+	Get(string) (*mongo.Cursor, error)
+	GetWithFilter(string, primitive.D) (*mongo.Cursor, error)
 	FetchCollectionNames() ([]string, error)
 	TimestampBetween(int, int) primitive.D
 }
@@ -45,25 +45,15 @@ func (d *db) get(collectionName string, filter primitive.D, options *options.Fin
 	return d.mongoDb.Get(collectionName, filter, options)
 }
 
-func (d *db) Get(collectionName string) {
+func (d *db) Get(collectionName string) (*mongo.Cursor, error) {
 	filter := bson.D{}
 	options := options.Find()
-	data, err := d.get(collectionName, filter, options)
-	if err != nil {
-		log.Warnf("Read error, %s", err.Error())
-		return
-	}
-	log.Info(data)
+	return d.get(collectionName, filter, options)
 }
 
-func (d *db) GetWithFilter(collectionName string, filter primitive.D) {
+func (d *db) GetWithFilter(collectionName string, filter primitive.D) (*mongo.Cursor, error) {
 	options := options.Find()
-	data, err := d.get(collectionName, filter, options)
-	if err != nil {
-		log.Warnf("Read error, %s", err.Error())
-		return
-	}
-	log.Info(data)
+	return d.get(collectionName, filter, options)
 }
 
 func (d *db) FetchCollectionNames() ([]string, error) {

@@ -12,6 +12,7 @@ require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.0
 	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/mitchellh/mapstructure v1.4.3
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/rs/zerolog v1.26.1

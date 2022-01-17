@@ -5,8 +5,11 @@ import (
 	"net/http"
 
 	"github.com/dankersw/home-automation-backend/db"
+	"github.com/dankersw/home-automation-backend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/mitchellh/mapstructure"
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type api struct {
@@ -50,13 +53,33 @@ func (a *api) GetDbCollectionNames(gc *gin.Context) {
 }
 
 func (a *api) GetSensorData(gc *gin.Context) {
-
 	filter := a.dbi.TimestampBetween(7, 0)
+	cursor, err := a.dbi.GetWithFilter("device_sensor_data", filter)
+	if err != nil {
+		Reply(gc, http.StatusInternalServerError, nil, err)
+		log.Errorf("Failed to get sensor data. %s", err.Error())
+		return
+	}
 
-	log.Info(filter)
+	for cursor.Next(context.TODO()) {
+		var item bson.M
+		err := cursor.Decode(&item)
+		if err != nil {
+			Reply(gc, http.StatusInternalServerError, nil, err)
+			log.Errorf("Failed to decode data, %s", err.Error())
+			return
+		}
+		log.Info(item)
 
-	a.dbi.GetWithFilter("device_sensor_data", filter)
+		r := models.ToSensorData(item)
+		log.Info(r)
 
+		result := models.SensorData{}
+		mapstructure.Decode(item, &result)
+		log.Info(result)
+	}
+
+	log.Info(cursor)
 	Reply(gc, http.StatusOK, "hi", nil)
 	/*
 		filter := generate_timestamp_filter(7, 0)
