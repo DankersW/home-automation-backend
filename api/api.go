@@ -7,7 +7,6 @@ import (
 	"github.com/dankersw/home-automation-backend/db"
 	"github.com/dankersw/home-automation-backend/models"
 	"github.com/gin-gonic/gin"
-	"github.com/mitchellh/mapstructure"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -73,10 +72,6 @@ func (a *api) GetSensorData(gc *gin.Context) {
 
 		r := models.ToSensorData(item)
 		log.Info(r)
-
-		result := models.SensorData{}
-		mapstructure.Decode(item, &result)
-		log.Info(result)
 	}
 
 	log.Info(cursor)
