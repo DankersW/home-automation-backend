@@ -19,5 +19,6 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	go.mongodb.org/mongo-driver v1.5.1
 	google.golang.org/grpc v1.37.0 // indirect
+	gopkg.in/yaml.v2 v2.2.8
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 )
