@@ -12,20 +12,21 @@ import (
 
 	//"github.com/dankersw/home-automation-backend/server"
 
+	"github.com/dankersw/home-automation-backend/config"
 	"github.com/dankersw/home-automation-backend/server"
 )
 
 var api_gateway *gin.Engine
-var config Config
+var config_ Config
 
 func old_init() {
-	config = get_config()
+	config_ = get_config()
 	api_gateway = setup_api_gateway()
 	connect_to_mongo()
 }
 
 func old_main() {
-	api_port := fmt.Sprintf(":%d", config.Api.Port)
+	api_port := fmt.Sprintf(":%d", config_.Api.Port)
 	api_gateway.Run(api_port)
 }
 
@@ -55,7 +56,9 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	server, err := server.New(ctx, ":4000")
+	config := config.Get()
+
+	server, err := server.New(ctx, config)
 	if err != nil {
 		log.Error("Failed to create server")
 	}
