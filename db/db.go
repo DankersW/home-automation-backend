@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/dankersw/home-automation-backend/models"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -28,7 +29,7 @@ type Db interface {
 	TimestampBetween(int, int) primitive.D
 }
 
-func New(ctx context.Context) (Db, error) {
+func New(ctx context.Context, config models.Config) (Db, error) {
 	mongoDb, err := newMongoDb(ctx, USER, PASSWORD, ADDR, PORT)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create MongoDb instance, %s", err.Error())

@@ -1,5 +1,5 @@
 mongo:
-  address: "mongo"
+  host: "mongo"
   port: 27017
 
 api:

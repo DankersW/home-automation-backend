@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/dankersw/home-automation-backend/models"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
@@ -12,27 +13,24 @@ const (
 	CONFIG_FILE_PATH = "config.yml"
 )
 
-type Config struct {
-}
-
-func Get() Config {
+func Get() models.Config {
 	config, err := parseYamlFile(CONFIG_FILE_PATH)
 	if err != nil {
 		log.Fatal("Failed to parse config file '%s', %s", CONFIG_FILE_PATH, err.Error())
-		return Config{}
+		return models.Config{}
 	}
 	return config
 }
 
-func parseYamlFile(file string) (Config, error) {
+func parseYamlFile(file string) (models.Config, error) {
 	buffer, err := ioutil.ReadFile(file)
 	if err != nil {
-		return Config{}, err
+		return models.Config{}, err
 	}
 
-	config := Config{}
+	config := models.Config{}
 	if yaml.Unmarshal(buffer, config) != nil {
-		return Config{}, fmt.Errorf("could not unmarshal, %s", err.Error())
+		return models.Config{}, fmt.Errorf("could not unmarshal, %s", err.Error())
 	}
 	return config, nil
 }

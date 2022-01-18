@@ -1,5 +1,5 @@
 mongo:
-  address: "localhost" 
+  host: "localhost" 
   #address: "mongo" 
   #address: "192.168.1.140" 
   port: 27017
