@@ -47,6 +47,4 @@ func main() {
 	<-quit
 
 	server.Close()
-
-	log.Info("done")
 }
