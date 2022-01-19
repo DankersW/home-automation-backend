@@ -1,9 +1,11 @@
 mongo:
-  host: "mongo"
+  addr: "mongo"
   port: 27017
+  user: "admin"
+  pass: "mongo_admin_iot"
 
 rest:
-  port1: 4000
+  port: 4000
 
 weather:
   key: "2634af517df0613c4c7f5a9b5150f724"

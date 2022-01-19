@@ -28,7 +28,7 @@ type Server interface {
 func New(ctx context.Context, config models.Config) (Server, error) {
 	log.Info("New Server created")
 
-	restServer := NewGin(fmt.Sprintf(":%d", config.Rest.Port1))
+	restServer := NewGin(fmt.Sprintf(":%d", config.Rest.Port))
 
 	endpoints := api.New(ctx, config)
 
@@ -43,14 +43,13 @@ func New(ctx context.Context, config models.Config) (Server, error) {
 }
 
 func (s *server) Start() {
-
-	log.Infof("%v", s.restServer.GetRoutes())
-
-	log.Info("Server started")
+	log.Info("Starting servers...")
 	go s.restServer.Start()
+	log.Info("Servers started")
 }
 
 func (s *server) Close() {
-	log.Info("Closing server")
+	log.Info("Closing servers...")
 	s.restServer.Close(context.Background())
+	log.Info("Servers closed")
 }

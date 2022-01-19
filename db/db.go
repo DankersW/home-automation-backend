@@ -12,13 +12,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const (
-	USER     = "admin"
-	PASSWORD = "mongo_admin_iot"
-	ADDR     = "localhost"
-	PORT     = 27017
-)
-
 type db struct {
 	mongoDb MongoDb
 }
@@ -30,7 +23,7 @@ type Db interface {
 }
 
 func New(ctx context.Context, config models.Config) (Db, error) {
-	mongoDb, err := newMongoDb(ctx, USER, PASSWORD, ADDR, PORT)
+	mongoDb, err := newMongoDb(ctx, config.Mongo.User, config.Mongo.Pass, config.Mongo.Addr, config.Mongo.Port)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create MongoDb instance, %s", err.Error())
 	}

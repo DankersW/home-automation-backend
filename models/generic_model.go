@@ -2,12 +2,14 @@ package models
 
 type Config struct {
 	Mongo struct {
-		Host string `yaml:"host"`
-		Port uint16 `yaml:"port"`
+		Addr string `yaml:"addr"`
+		Port int    `yaml:"port"`
+		User string `yaml:"user"`
+		Pass string `yaml:"pass"`
 	}
 
 	Rest struct {
-		Port1 int `yaml:"port1"`
+		Port int `yaml:"port"`
 	}
 	Weather struct {
 		Key string  `yaml:"key"`

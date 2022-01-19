@@ -1,13 +1,15 @@
 mongo:
-  host: "localhost" 
+  addr: "localhost" 
   #address: "mongo" 
   #address: "192.168.1.140" 
   port: 27017
+  user: "admin"
+  pass: "mongo_admin_iot"
 
-#rest:
-#  port1: 7000
+rest:
+  port: 7000
 
-#weather:
-#  key: "2634af517df0613c4c7f5a9b5150f724"
-#  lon: 11.9746
-#  lat: 57.7089
+weather:
+  key: "2634af517df0613c4c7f5a9b5150f724"
+  lon: 11.9746
+  lat: 57.7089
