@@ -20,8 +20,8 @@ type Api interface {
 	GetSensorData(*gin.Context)
 }
 
-func New(ctx context.Context) Api {
-	dbi, err := db.New(ctx)
+func New(ctx context.Context, config models.Config) Api {
+	dbi, err := db.New(ctx, config)
 	if err != nil {
 		log.Errorf("DB setup error. %s", err.Error())
 	}

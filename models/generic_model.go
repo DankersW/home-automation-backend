@@ -5,7 +5,7 @@ type Config struct {
 		Host string `yaml:"host"`
 		Port uint16 `yaml:"port"`
 	}
-	Api struct {
+	Rest struct {
 		Port uint16 `yaml:"port"`
 	}
 	Weather struct {

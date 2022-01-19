@@ -2,12 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/signal"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 
 	//"github.com/dankersw/home-automation-backend/server"
@@ -16,29 +13,7 @@ import (
 	"github.com/dankersw/home-automation-backend/server"
 )
 
-var api_gateway *gin.Engine
-var config_ Config
-
-func old_init() {
-	config_ = get_config()
-	api_gateway = setup_api_gateway()
-	connect_to_mongo()
-}
-
-func old_main() {
-	api_port := fmt.Sprintf(":%d", config_.Api.Port)
-	api_gateway.Run(api_port)
-}
-
-func setup_api_gateway() *gin.Engine {
-	api_engine := gin.Default()
-	api_engine.Use(cors.Default())
-
-	api_router_group := api_engine.Group("/api")
-	setup_api_endpoints(api_router_group)
-	return api_engine
-}
-
+/*
 func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/", handler_get_all_apis)                                    // done
 	router_group.GET("/iotDbCollectionNames", handler_get_iot_db_collection_names) // done
@@ -51,12 +26,16 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/host_health/info", handler_get_host_health_info)
 	router_group.GET("/host_heath/stream", handler_get_host_health_stream)
 }
+*/
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	config := config.Get()
+
+	log.Info(config)
+	return
 
 	server, err := server.New(ctx, config)
 	if err != nil {

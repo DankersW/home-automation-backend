@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/dankersw/home-automation-backend/api"
 	"github.com/dankersw/home-automation-backend/models"
@@ -27,9 +28,9 @@ type Server interface {
 func New(ctx context.Context, config models.Config) (Server, error) {
 	log.Info("New Server created")
 
-	restServer := NewGin(restServerPort)
+	restServer := NewGin(fmt.Sprintf(":%d", config.Rest.Port))
 
-	endpoints := api.New(ctx)
+	endpoints := api.New(ctx, config)
 
 	handlers := NewRouteHandler(restServer.GetRoutes, endpoints)
 	restRoutes := handlers.getRestRoutes()
