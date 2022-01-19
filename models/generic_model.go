@@ -5,8 +5,9 @@ type Config struct {
 		Host string `yaml:"host"`
 		Port uint16 `yaml:"port"`
 	}
+
 	Rest struct {
-		Port uint16 `yaml:"port"`
+		Port1 int `yaml:"port1"`
 	}
 	Weather struct {
 		Key string  `yaml:"key"`

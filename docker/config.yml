@@ -3,7 +3,7 @@ mongo:
   port: 27017
 
 rest:
-  port: 4000
+  port1: 4000
 
 weather:
   key: "2634af517df0613c4c7f5a9b5150f724"

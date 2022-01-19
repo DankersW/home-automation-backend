@@ -6,7 +6,7 @@ import (
 
 	"github.com/dankersw/home-automation-backend/models"
 	log "github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -27,9 +27,8 @@ func parseYamlFile(file string) (models.Config, error) {
 	if err != nil {
 		return models.Config{}, err
 	}
-
 	config := models.Config{}
-	if yaml.Unmarshal(buffer, config) != nil {
+	if yaml.Unmarshal(buffer, &config) != nil {
 		return models.Config{}, fmt.Errorf("could not unmarshal, %s", err.Error())
 	}
 	return config, nil

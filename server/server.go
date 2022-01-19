@@ -28,7 +28,7 @@ type Server interface {
 func New(ctx context.Context, config models.Config) (Server, error) {
 	log.Info("New Server created")
 
-	restServer := NewGin(fmt.Sprintf(":%d", config.Rest.Port))
+	restServer := NewGin(fmt.Sprintf(":%d", config.Rest.Port1))
 
 	endpoints := api.New(ctx, config)
 

@@ -35,7 +35,6 @@ func main() {
 	config := config.Get()
 
 	log.Info(config)
-	return
 
 	server, err := server.New(ctx, config)
 	if err != nil {
