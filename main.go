@@ -34,8 +34,6 @@ func main() {
 
 	config := config.Get()
 
-	log.Info(config)
-
 	server, err := server.New(ctx, config)
 	if err != nil {
 		log.Error("Failed to create server")

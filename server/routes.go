@@ -29,6 +29,7 @@ func (r *routeHandler) getRestRoutes() RestRoutes {
 		route(http.MethodGet, "/", r.allRoutes),
 		route(http.MethodGet, "/iotDbCollectionNames", r.api.GetDbCollectionNames),
 		route(http.MethodGet, "/sensor/data", r.api.GetSensorData),
+		route(http.MethodGet, "/docker/info", r.api.GetDockerInfo),
 	}
 	return routes
 }

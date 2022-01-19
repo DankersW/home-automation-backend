@@ -17,6 +17,7 @@ type api struct {
 type Api interface {
 	GetDbCollectionNames(*gin.Context)
 	GetSensorData(*gin.Context)
+	GetDockerInfo(*gin.Context)
 }
 
 func New(ctx context.Context, config models.Config) Api {
