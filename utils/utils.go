@@ -1,6 +1,9 @@
 package utils
 
-import "reflect"
+import (
+	"reflect"
+	"unicode/utf8"
+)
 
 func ToString(item interface{}) string {
 	if item == nil || reflect.TypeOf(item).Kind() != reflect.String {
@@ -17,4 +20,9 @@ func ToFloat32(value interface{}) float32 {
 	} else {
 		return 0.0
 	}
+}
+
+func RmFirstChar(str string) string {
+	_, i := utf8.DecodeRuneInString(str)
+	return str[i:]
 }
