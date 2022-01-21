@@ -1,8 +1,10 @@
 mongo:
-  address: "mongo"
+  addr: "mongo"
   port: 27017
+  user: "admin"
+  pass: "mongo_admin_iot"
 
-api:
+rest:
   port: 4000
 
 weather:

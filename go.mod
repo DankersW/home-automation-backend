@@ -8,12 +8,17 @@ require (
 	github.com/docker/docker v20.10.5+incompatible
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
+	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.0
 	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/mitchellh/mapstructure v1.4.3
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
+	github.com/rs/zerolog v1.26.1
+	github.com/sirupsen/logrus v1.4.2
 	go.mongodb.org/mongo-driver v1.5.1
 	google.golang.org/grpc v1.37.0 // indirect
+	gopkg.in/yaml.v2 v2.2.8
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 )
