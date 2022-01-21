@@ -40,4 +40,4 @@ jobs:
             echo "Building amd64 & arm64 for tag latest"
             IMG_TAG="latest"
           fi
-          docker buildx build -t $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG . --build-arg tag=$IMG_TAG --platform linux/amd64,linux/arm64 --push
+          docker buildx build -t $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG -f docker/Dockerfile . --build-arg tag=$IMG_TAG --platform linux/amd64,linux/arm64 --push
