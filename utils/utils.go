@@ -26,3 +26,12 @@ func RmFirstChar(str string) string {
 	_, i := utf8.DecodeRuneInString(str)
 	return str[i:]
 }
+
+func StrInSlice(str string, slice []string) bool {
+	for _, v := range slice {
+		if v == str {
+			return true
+		}
+	}
+	return false
+}
