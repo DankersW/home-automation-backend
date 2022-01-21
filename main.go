@@ -7,8 +7,6 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	//"github.com/dankersw/home-automation-backend/server"
-
 	"github.com/dankersw/home-automation-backend/config"
 	"github.com/dankersw/home-automation-backend/server"
 )
@@ -20,7 +18,7 @@ func setup_api_endpoints(router_group *gin.RouterGroup) {
 	router_group.GET("/temp/stream", handler_get_temp_stream)
 	router_group.GET("/temp/info", handler_get_temp_info)
 	router_group.GET("/temp/predicted", handler_get_outdoor_temp_prediction)
-	router_group.GET("/docker_info", handler_get_docker_info)
+	router_group.GET("/docker_info", handler_get_docker_info) // done
 	router_group.GET("/devices/digital_twin", handler_get_devices_digital_twin)
 	router_group.GET("/devices/status", handler_get_devices_status)
 	router_group.GET("/host_health/info", handler_get_host_health_info)
