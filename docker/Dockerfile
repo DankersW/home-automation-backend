@@ -8,11 +8,9 @@ RUN go mod download
 
 # Copy the code into the container
 COPY . .
-COPY config.yml ./
-RUN go build
+COPY docker/config.yml .
+RUN go build -o ./out/home-automation-backend .
 
-# Move to /dist directory as the place for resulting binary folder
-WORKDIR /dankers-io-backend
 
 EXPOSE 3000
-ENTRYPOINT ["./dankers-io-backend"]
+ENTRYPOINT ["./out/home-automation-backend"]
