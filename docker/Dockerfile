@@ -1,16 +1,16 @@
-FROM golang:1.16 as builder
+FROM golang:1.16-alpine
+
+# Copy and download dependency using go mod
 WORKDIR /build
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
-COPY . .
-RUN go build -o home-automation-backend .
 
-FROM alpine:3.15.0
-RUN apk --no-cache add ca-certificates
-WORKDIR /app
-COPY --from=builder /build/home-automation-backend ./
+# Copy the code into the container
+COPY . .
 COPY docker/config.yml .
+RUN go build -o ./out/home-automation-backend .
+
 
 EXPOSE 3000
-ENTRYPOINT ["./home-automation-backend"]
+ENTRYPOINT ["./out/home-automation-backend"]

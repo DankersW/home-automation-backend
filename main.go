@@ -34,7 +34,7 @@ func main() {
 
 	server, err := server.New(ctx, config)
 	if err != nil {
-		log.Error("Failed to create server")
+		log.Error("Failed to create HTTP server")
 	}
 	server.Start()
 
