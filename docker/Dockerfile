@@ -9,7 +9,7 @@ RUN go mod download
 # Copy the code into the container
 COPY . .
 COPY docker/config.yml .
-RUN go build -o ./out/home-automation-backend .
+RUN CGO_ENABLED=0 go build -o ./out/home-automation-backend .
 
 
 EXPOSE 3000
